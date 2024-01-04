@@ -8,7 +8,7 @@ import scala.language.postfixOps
 private var languages: YamlNode = null
 private var language: YamlNode = null
 
-def setLanguages(l: String): Unit = yaml.readFromString(l)
+def setLanguages(l: String): Unit = languages = yaml.readFromString(l)
 
 def setLanguage(lang: String): Unit = language = languages.map(lang)
 

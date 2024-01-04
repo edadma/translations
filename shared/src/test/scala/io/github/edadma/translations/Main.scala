@@ -18,4 +18,4 @@ package io.github.edadma.translations
   val x = "a"
   val y = "search"
 
-  pprintln(t"$x.$y")
+  println(t"$x.$y")
