@@ -15,7 +15,6 @@ package io.github.edadma.translations
   )
   setLanguage("en")
 
-  val x = "a"
-  val y = "search"
+  val x = "zxcv"
 
-  println(t"$x.$y")
+  println(t"a.search b, $x a.books.")

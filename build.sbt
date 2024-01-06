@@ -7,7 +7,7 @@ lazy val translations = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .in(file("."))
   .settings(
     name := "translations",
-    version := "0.0.1",
+    version := "0.0.2",
     scalaVersion := "3.3.1",
     scalacOptions ++=
       Seq(

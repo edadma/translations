@@ -13,12 +13,17 @@ def setLanguages(l: String): Unit = languages = yaml.readFromString(l)
 def setLanguage(lang: String): Unit = language = languages.map(lang)
 
 implicit class Translations(val x: StringContext):
-  def lookup(key: String): String =
-    def lookup: PartialFunction[(List[String], YamlNode), String] = {
-      case (hd :: tl, n) => lookup(tl, n.map(hd))
-      case (Nil, n)      => n.string
+  val keyRegex = raw"[a-zA-Z]+(?:\.[a-zA-Z]+)*".r
+
+  def lookup(key: String): Option[String] =
+    def lookup: PartialFunction[(List[String], YamlNode), Option[String]] = {
+      case (hd :: tl, n) =>
+        n.map get hd match
+          case None    => None
+          case Some(v) => lookup(tl, v)
+      case (Nil, n) => Some(n.string)
     }
 
     lookup(key split '.' toList, language)
 
-  def t(args: Any*): String = lookup(x.s(args: _*))
+  def t(args: Any*): String = keyRegex.replaceSomeIn(x.s(args: _*), m => lookup(m.matched))
